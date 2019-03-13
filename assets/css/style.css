@@ -4,5 +4,14 @@
 }
 
 #buttons-view {
-  width: 98%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+}
+
+.display {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
 }
