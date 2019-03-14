@@ -5,13 +5,29 @@
 
 #buttons-view {
   width: 100%;
+  margin: 0 15px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.display {
+  width: 100%;
+  margin: 0 15px;
   display: flex;
   flex-wrap: wrap;
   align-content: space-around;
 }
 
-.display {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: space-around;
+.btn {
+  margin-right: 5px;
+  margin-top: 5px;
+}
+
+img {
+  margin: 0 15px;
+}
+
+form {
+  width: 200px;
+  margin-left: 15px;
 }
