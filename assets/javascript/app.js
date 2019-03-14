@@ -62,21 +62,26 @@ $(document).ready(function() {
 
       var results = response.data;
       for (var i = 0; i < results.length; i++) {
-        var gifAni = results[i].images.fixed_width.url;
+        var animate = results[i].images.fixed_width.url;
         var rating = results[i].rating;
-        renderGifs(gifAni, rating);
+        var still = results[i].images.fixed_width_still.url;
+        renderGifs(animate, still, rating);
       }
     });
   }
 
-  function renderGifs(gifAni, rating) {
+  function renderGifs(animate, still, rating) {
     var gifDiv = $("<div>");
 
     var p = $("<p>").text("Rating: " + rating);
 
     var image = $("<img>");
-    image.attr("src", gifAni);
-    image.addClass("gif");
+    image
+      .attr("src", still)
+      .addClass("gif")
+      .attr("data-state", "still")
+      .attr("data-still", still)
+      .attr("data-animate", animate);
 
     gifDiv.prepend(p);
     gifDiv.prepend(image);
@@ -87,16 +92,17 @@ $(document).ready(function() {
   // start and stop animate the gifs when clicked on
 
   $(document).on("click", ".gif", function() {
-    console.log("this is my gif!!", $(this).data());
+    // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+    var state = $(this).attr("data-state");
+    // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+    // Then, set the image's data-state to animate
+    // Else set src to the data-still value
+    if (state === "still") {
+      $(this).attr("src", $(this).attr("data-animate"));
+      $(this).attr("data-state", "animated");
+    } else {
+      $(this).attr("src", $(this).attr("data-still"));
+      $(this).attr("data-state", "still");
+    }
   });
-
-  if ($(this).data().state === "still") {
-    console.log("GO MAKE IT ANIMATED!!!");
-    $(this).data().state = "animated";
-    $(this).attr("src", $(this).data().animate);
-  } else if ($(this).data().state === "animated") {
-    console.log("MAKE IT STILL!!");
-    $(this).data().state = "still";
-    $(this).attr("src", $(this).data().still);
-  }
 });
