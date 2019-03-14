@@ -2,14 +2,14 @@ $(document).ready(function() {
   var places = [
     "London",
     "Paris",
-    "Amsterdam",
-    "Edinburgh",
-    "Madrid",
+    "Holland",
+    "Scotland",
+    "Spain",
     "Rome",
     "New York",
     "Chicago",
-    "Berlin",
-    "Sydney"
+    "Germany",
+    "Australia"
   ];
 
   // A function to render the buttons to the page from the original places array:
@@ -62,20 +62,21 @@ $(document).ready(function() {
 
       var results = response.data;
       for (var i = 0; i < results.length; i++) {
-        var gif = results[i].images.fixed_width.url;
+        var gifAni = results[i].images.fixed_width.url;
         var rating = results[i].rating;
-        renderGifs(gif, rating);
+        renderGifs(gifAni, rating);
       }
     });
   }
 
-  function renderGifs(gif, rating) {
+  function renderGifs(gifAni, rating) {
     var gifDiv = $("<div>");
 
     var p = $("<p>").text("Rating: " + rating);
 
     var image = $("<img>");
-    image.attr("src", gif);
+    image.attr("src", gifAni);
+    image.addClass("gif");
 
     gifDiv.prepend(p);
     gifDiv.prepend(image);
@@ -85,17 +86,17 @@ $(document).ready(function() {
 
   // start and stop animate the gifs when clicked on
 
-  $(document).on("click", ".display", function() {
+  $(document).on("click", ".gif", function() {
     console.log("this is my gif!!", $(this).data());
   });
 
-  //   if ($(this).data().state === "still") {
-  //     console.log("GO MAKE IT ANIMATED!!!");
-  //     $(this).data().state = "animated";
-  //     $(this).attr("src", $(this).data().animate);
-  //   } else if ($(this).data().state === "animated") {
-  //     console.log("MAKE IT STILL!!");
-  //     $(this).data().state = "still";
-  //     $(this).attr("src", $(this).data().still);
-  //   }
+  if ($(this).data().state === "still") {
+    console.log("GO MAKE IT ANIMATED!!!");
+    $(this).data().state = "animated";
+    $(this).attr("src", $(this).data().animate);
+  } else if ($(this).data().state === "animated") {
+    console.log("MAKE IT STILL!!");
+    $(this).data().state = "still";
+    $(this).attr("src", $(this).data().still);
+  }
 });
